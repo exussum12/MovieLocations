@@ -1,4 +1,4 @@
 .phpunit.cache/
-composer.json
+composer.lock
 vendor
 html
