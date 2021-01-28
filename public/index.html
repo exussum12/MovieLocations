@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Description" content="Search which areas movies are filmed in or have links to">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <meta property="og:title" content="Movie Finder"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Movie Mapper">
+    <meta name="twitter:description" content="Search locations for movie connections">
+
+    <title>Movie Mapper - See what has been filmed near you</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" integrity="sha384-eS4bw6aEvhCSXWGP85ANR/N8isWKzT7P36NvcuTJGkrj6wsbxLVpXslrNXYHyseD" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.72.0/dist/L.Control.Locate.min.css" integrity="sha384-vPNGCZwbWwO+u7VXCcmLEJRcz/YmtXGdC3LOF8O4/IvddhfpYZI1O0tJszYkbsD2" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" integrity="sha384-bF2gXog8EbftpjuWQY8G0T7aeq+FvNU9YWvxSRHybqv2F/lvV5msKMHvRgoukeQP" crossorigin="anonymous">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.find%2Cfetch%2CPromise%2CPromise.prototype.finally%2Cdefault%2CArray.prototype.includes" integrity="sha384-bF2gXog8EbftpjuWQY8G0T7aeq+FvNU9YWvxSRHybqv2F/lvV5msKMHvRgoukeQP" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js" integrity="sha384-wKOriz2x8/bF1D9t6PuKhSpxfhHeVi9huvyuxJrrShSJpi5+rmRIsM90UuWbdAYJ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.72.0/dist/L.Control.Locate.min.js" integrity="sha384-g5auForUrJRA/c7ecPwFWRKeQqsJphdlumGoxbKTX6tpzREZyXRzeGwqjenHr4Yx" crossorigin="anonymous" charset="utf-8"></script>    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://d3js.org/d3.v5.min.js" integrity="sha384-M06Cb6r/Yrkprjr7ngOrJlzgekrkkdmGZDES/SUnkUpUol0/qjsaQWQfLzq0mcfg" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <style>
+        #mapid {
+            position: relative;
+            width: 100%;
+            height: 90%;
+        }
+        html, body, div.container, div.tab-content, #map {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+        #about {
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-light bg-light">
+    <h1>Movie Finder</h1>
+		        <ul class="nav nav-pills" role="tablist">
+            <li class="nav-item">
+                <a id="maplink" class="nav-link active" data-toggle="pill" href="#map">Map</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#about">About</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="tab-content">
+        <div id="map-warning" class="hide alert alert-info" role="alert">
+            Please zoom in some more to see the locations
+        </div>
+        <div id="map" class="container tab-pane active">
+            <div id="mapid"></div>
+        </div>
+        <div id="about" class="container tab-pane fade">
+            <div id="sharing" class="d-flex flex-row-reverse">
+            </div>
+            <p>
+                Find movies with connections to nearby places
+            </p>
+            <p>
+                This uses data parsed from <a href="https://wikipedia.org">Wikipedia</a> to map connections between places
+                and movies. This could be where its filmed at, where its set, or any
+                other reason why a movie would link directly to a place.
+            </p>
+            <p>
+                This idea came about as lockdown has forced more local holidays
+                and while travelling even within a few kilometers it's been amazing
+                to find all of the interesting information right on your doorstep!
+            </p>
+
+            <p>
+                The existing maps seem to have few items on them as they are building the
+                database themselves, This map takes the wikipedia data dumps and parses them
+                for the links, so you cant directly add a film / movie location to this tool,
+                you would need to edit the information into <a href="https://wikipedia.org">Wikipedia</a>!
+            </p>
+
+            <p>The IMDb Links are also provided by the page links in <a href="https://wikipedia.org">Wikipedia</a>.
+            <p>
+                &copy; Wikipedia data, provided with Creative Commons Attribution-Share-Alike License 3.0
+            </p>
+            <p>
+							Information courtesy of
+							IMDb
+                        (<a href="https://www.imdb.com">IMDb.com</a>).
+							Used with permission.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+
+		function showResults(movies) {
+        movies.forEach(function(d) {
+					if ((+d.lat == 0) || (+d.lon == 0) || d.lon == undefined || d.lat == undefined ||isNaN(+d.lon) || isNaN(+d.lat) ) {
+						return;
+					}
+					let movie = d.movie.replace(/ /g,'_');
+					let loc = d.location.replace(/ /g,'_');
+            return L.circleMarker([+d.lat, +d.lon], {"title": d.movie})
+                .bindPopup(`<a href="https://en.wikipedia.org/wiki/${movie}">${d.movie}</a> has links to <a href="https://en.wikipedia.org/wiki/${loc}">${d.location}</a>`)
+                .addTo(canvasLayer)
+        });
+    }
+
+    const mapid = L.map('mapid', {renderer: L.canvas()});
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        minZoom: 4,
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapid);
+		const canvasLayer = new L.layerGroup().addTo(mapid);
+
+
+    mapid.on("moveend", function () {
+        const d = mapid.getCenter();
+        const result = { lat: d.lat, lon: d.lng };
+        localStorage && localStorage.setItem('location', JSON.stringify({lon: d.lng, lat: d.lat, zoom: mapid._zoom}));
+		});
+		mapid.on('zoomstart', function() {
+			mapid.removeLayer(canvasLayer)
+            $('#map-warning').hide();
+		});
+		mapid.on('zoomend', function() {
+			if (mapid.getZoom() >= 8 && !mapid.hasLayer(canvasLayer)) {
+				canvasLayer.addTo(mapid);
+			}
+			if (mapid.getZoom() < 8) {
+			    $('#map-warning').show();
+            }
+		});
+
+			d3.tsv("parsed.csv")
+					.then(function(movies) {
+							showResults(movies)
+					})
+					.catch(function(error) {
+							showResults([]);
+							console.log(error);
+					});
+
+    let defaults = {
+        lat: 51.505,
+        lon: -0.09,
+        zoom: 9
+    }
+
+    if (localStorage && localStorage.getItem('location')) {
+        defaults = JSON.parse(localStorage.getItem('location'));
+    }
+
+    mapid.setView([defaults.lat, defaults.lon], defaults.zoom);
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
