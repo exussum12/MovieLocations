@@ -78,6 +78,7 @@ while (true) {
                 if (isset($imdbMatch)) {
                     $mapping->imdbVotes = $imdbMatch->votes;
                     $mapping->imdbScore = $imdbMatch->score;
+                    $mapping->imdbId = $imdbMatch->id;
                 }
                 $output[] = $mapping;
             }
@@ -88,15 +89,16 @@ while (true) {
         continue;
     }
 }
-printf("movie\tlocation\tlat\tlon\timdb\tvotes\n");
+printf("movie\tlocation\tlat\tlon\tscore\tvotes\timdb\n");
 foreach ($output as $out) {
     printf(
-        "%s\t%s\t%.4f\t%.4f\t%.1f\t%d\n",
+        "%s\t%s\t%.4f\t%.4f\t%.1f\t%d\t%s\n",
         $out->movie,
         $out->location,
         $out->coords->lat + $out->coords->addJudder(),
         $out->coords->long + $out->coords->addJudder(),
         $out->imdbScore,
-        $out->imdbVotes
+        $out->imdbVotes,
+        $out->imdbId
     );
 }

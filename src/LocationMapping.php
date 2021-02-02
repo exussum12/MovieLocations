@@ -7,5 +7,6 @@ class LocationMapping
     public string $movie;
     public float $imdbScore = 0;
     public int $imdbVotes = 0;
+    public string $imdbId = '';
     public LatLong $coords;
 }

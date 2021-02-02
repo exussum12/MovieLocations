@@ -81,11 +81,48 @@ class LocationTest extends TestCase
             $this->location->getParsedCoords('{{coord|19|53|14.40|N|71|04|49.50|W|')
         );
     }
+    public function testHandleDecimalWithDots()
+    {
+        $expected = new LatLong();
+        $expected->lat = 53.3822;
+        $expected->long = -4.3525;
+        $this->assertEqualsLocation(
+            $expected,
+            $this->location->getParsedCoords('53.22.56 N, 4.21.9 W')
+        );
+    }
+    /** @dataProvider locations */
+    public function testSuccessfulParse($string, $expectedLat, $expectedLong)
+    {
+        $expected = new LatLong();
+        $expected->lat = $expectedLat;
+        $expected->long = $expectedLong;
+        $this->assertEqualsLocation(
+            $expected,
+            $this->location->getParsedCoords($string)
+        );
+    }
+
+    public function locations() : array
+    {
+        return [
+            ['{{coord|52.204|N|0.112|E|}}', 52.204, 0.112],
+            ['{{coord|57|0|N|5|41.5|W|', 57, -5.6916],
+            ['61.2683|5.3250 |', 61.2683, 5.3250],
+        ];
+    }
 
     public function testInvalid()
     {
         $this->expectException(LogicException::class);
         $this->location->getParsedCoords('Nothing here');
+    }
+
+    public function testMoreInvalid()
+    {
+
+        $this->expectException(LogicException::class);
+        $this->location->getParsedCoords(' missing|Georgia (U.S. state)}}');
     }
 
 

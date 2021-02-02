@@ -1,94 +1,83 @@
 <?php
 namespace exussum12\movies;
 
+use LogicException;
+
 class Location
 {
-    public function getParsedCoords($coords): LatLong
+    public function getParsedCoords(string $coords): LatLong
     {
         $matches = [];
 
+        if (strpos($coords, '|') === false) {
+            $coords = str_replace('.', '|', $coords);
+        }
+
+        // Check the simple case first
+        $parts = array_filter(explode("|", $coords));
+
+        if (count($parts) === 2) {
+            $parts['DegreesLat'] = trim($parts[0]);
+            $parts['DegreesLong'] = trim($parts[1]);
+            return $this->handleDMS($parts);
+        }
+
+
         if (preg_match(
-            '/([0-9]{1,3})\|([0-9]{1,3})\|([0-9]{1,3}(?:\.[0-9]+)?).([N|S])' .
-            '.*?([0-9]{1,3})\|([0-9]{1,3})\|([0-9]{1,3}(?:\.[0-9]+)?)\|([W|E])/i',
+            "/
+            (?P<DegreesLat>[-0-9.]{1,})
+            (?:[|.](?P<MinutesLat>[0-9.]{1,}))?
+            (?:[|.](?P<SecondsLat>[0-9.]{1,}))?
+            [|. ]*
+            (?P<NorthSouth>[NS])?
+            [., |]*
+            (?P<DegreesLong>[-0-9.]{1,})[|. ,]*
+            (?:(?P<MinutesLong>[0-9.]{1,})[|.])?
+            (?:(?P<SecondsLong>[0-9.]{1,}(?:\.[0-9]+)?)[|. ]*)?
+            (?P<EastWest>[WE])?
+            /xi",
             $coords,
             $matches
         )) {
             return $this->handleDMS($matches);
         }
 
-        if (preg_match(
-            '/([0-9]{1,3}) *\|([0-9]{1,3}) *\| *([N|S]) *' .
-            '\| *([0-9]{1,3}) *\| *([0-9]{1,3}) *\| *([W|E] *)/i',
-            $coords,
-            $matches
-        )
-        ) {
-            return $this->handleDM($matches);
-        }
 
-        if (preg_match(
-            '/([0-9.]+) *\|([N|S])\| *([0-9.]+) *\| *([W|E])/i',
-            $coords,
-            $matches
-        )
-        ) {
-            return $this->handleDecimalDM($matches);
-        }
-
-
-        if (preg_match(
-            '/(-?[0-9.]+) *\| *(-?[0-9.]+) */',
-            $coords,
-            $matches
-        )
-        ) {
-            return $this->handleDecimal($matches);
-        }
-
-        throw new \LogicException("Invalid Coordinates");
+        throw new LogicException("Invalid Coordinates");
     }
-
-
 
     private function handleDMS($matches): LatLong
     {
-        $lat = $matches[1];
-        $lat += $matches[2] / 60;
-        $lat += $matches[3] / 3600;
-        if ($matches[4] === "S" || $matches[4] === "s") {
-            $lat = -$lat;
+        if (!is_numeric($matches['DegreesLat']) || !is_numeric($matches['DegreesLong'])) {
+            throw new LogicException("Invalid Coordinates");
         }
 
-        $long = $matches[5];
-        $long += $matches[6] / 60;
-        $long += $matches[7] / 3600;
-        if ($matches[8] === "W" || $matches[8] === "w") {
-            $long = -$long;
+        $lat = $matches['DegreesLat'];
+        if (!empty($matches['MinutesLat'])) {
+            $lat += $matches['MinutesLat'] / 60;
+        }
+        if (!empty($matches['SecondsLat'])) {
+            $lat += $matches['SecondsLat'] / 3600;
+        }
+        if (!empty($matches['NorthSouth'])) {
+
+            if ($matches['NorthSouth'] === "S" || $matches['NorthSouth'] === "s") {
+                $lat = -$lat;
+            }
         }
 
-        $return = new LatLong();
-        $return->lat = (float) $lat;
-        $return->long = (float) $long;
-
-        return $return;
-    }
-
-    /**
-     * @param $matches
-     * @return LatLong
-     */
-    private function handleDM($matches): LatLong
-    {
-        $lat = $matches[1];
-        $lat += $matches[2] / 60;
-        if ($matches[3] === "S" || $matches[3] === "s") {
-            $lat = -$lat;
+        $long = $matches['DegreesLong'];
+        if (!empty($matches['MinutesLong'])) {
+            $long += $matches['MinutesLong'] / 60;
         }
+        if (!empty($matches['SecondsLong'])) {
+            $long += $matches['SecondsLong'] / 3600;
+        }
+        if (!empty($matches['EastWest'])) {
 
-        $long = $matches[4];
-        $long += $matches[5] / 60;
-        if ($matches[6] === "W" || $matches[6] === "w") {
-            $long = -$long;
+            if ($matches['EastWest'] === "W" || $matches['EastWest'] === "w") {
+                $long = -$long;
+            }
         }
 
         $return = new LatLong();
@@ -98,41 +87,4 @@ class Location
         return $return;
     }
 
-    /**
-     * @param $matches
-     * @return LatLong
-     */
-    private function handleDecimalDM($matches): LatLong
-    {
-        $lat = $matches[1];
-        if ($matches[2] === "S" || $matches[2] === "s") {
-            $lat = -$lat;
-        }
-
-        $long = $matches[3];
-        if ($matches[4] === "W" || $matches[4] === "w") {
-            $long = -$long;
-        }
-
-        $return = new LatLong();
-        $return->lat = (float) $lat;
-        $return->long = (float) $long;
-
-        return $return;
-    }
-
-    /**
-     * @param array $matches
-     * @return LatLong
-     */
-    private function handleDecimal(array $matches): LatLong
-    {
-        [,$lat, $long] = $matches;
-
-        $return = new LatLong();
-        $return->lat = (float) $lat;
-        $return->long = (float) $long;
-
-        return $return;
-    }
 }
