@@ -14,9 +14,10 @@ class Location
         }
 
         // Check the simple case first
-        $parts = array_filter(explode("|", $coords));
+        $parts = array_values(array_filter(explode("|", $coords), [$this, 'filterLocation']));
 
         if (count($parts) === 2) {
+
             $parts['DegreesLat'] = trim($parts[0]);
             $parts['DegreesLong'] = trim($parts[1]);
             return $this->handleDMS($parts);
@@ -44,6 +45,23 @@ class Location
 
 
         throw new LogicException("Invalid Coordinates");
+    }
+
+    private function filterLocation($input)
+    {
+        if (empty($input)) {
+            return false;
+        }
+
+        if(is_numeric(trim($input))) {
+            return true;
+        }
+
+        if (in_array(strtoupper(trim($input)), ['N', 'E', 'S', 'W'])) {
+            return true;
+        }
+
+        return false;
     }
 
     private function handleDMS($matches): LatLong
