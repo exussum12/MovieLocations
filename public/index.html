@@ -139,8 +139,31 @@ mapid.on("moveend", function () {
     const result = { lat: d.lat, lon: d.lng };
     localStorage && localStorage.setItem(
         'location',
-        JSON.stringify({lon: d.lng, lat: d.lat, zoom: mapid._zoom}));
-    });
+        JSON.stringify({lon: d.lng, lat: d.lat, zoom: mapid.getZoom()})
+    );
+    const bounds = mapid.getBounds();
+    if (mapid.getZoom() < 8) {
+        return;
+    }
+    for(let x = Math.floor(bounds.getSouthWest().lat); x <= Math.ceil(bounds.getNorthEast().lat); x++) {
+        for(let y = Math.floor(bounds.getSouthWest().lng); y <= Math.ceil(bounds.getNorthEast().lng); y++) {
+            let filename = "out/" + x + "/" + y +".csv";
+            if (loadedTiles.indexOf(filename) === -1) {
+                loadedTiles.push(filename);
+                d3.tsv("out/" + x + "/" + y + ".csv")
+                    .then(function (movies) {
+                        showResults(movies)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }
+    }
+
+});
+
+var loadedTiles = [];
 
 mapid.on('zoomend', function() {
     if (mapid.getZoom() >= 8) {
@@ -152,14 +175,6 @@ mapid.on('zoomend', function() {
         $('#map-warning').show();
 });
 
-d3.tsv("parsed.csv")
-    .then(function(movies) {
-        showResults(movies)
-    })
-    .catch(function(error) {
-        showResults([]);
-        console.log(error);
-    });
 
 let defaults = {
     lat: 51.505,

@@ -18,8 +18,11 @@ The process should take about 600MB of RAM, it takes around
 25 minutes on my machine
 
 # Website
-The website part is a static file should be able able to host the
-index.html and the parses.csv files and it should run as is
+The website part is a static file should be able to host the
+index.html, download the parsed.csv file (https://movie.exussum.co.uk/parsed.csv)
+run the `split_locations.awk` file
+
+```awk -v FS='\t' -v OFS='\t' -f split_locations.awk  public/parsed.csv```
 
 to test locally with php use
 `cd public;
