@@ -1,0 +1,5 @@
+SELECT ?IMDb_ID ?sitelink WHERE {
+  ?item wdt:P31 wd:Q11424 .
+  ?item wdt:P345 ?IMDb_ID .
+  ?sitelink schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> .
+}
