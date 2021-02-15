@@ -46,10 +46,22 @@ unset($location);
 /** @var Imdb[] $imdb */
 $imdb = [];
 
-$imdbFile = fopen('/tmp/data.tsv', 'r');
-fgetcsv($imdbFile, 0, "\t"); //header row
+$imdbFile = fopen($argv[2], 'r');
+fgetcsv($imdbFile, 0, "\t");
 while (($row = fgetcsv($imdbFile, 0, "\t")) !== false && count($row) === 3) {
     $imdb[$row[0]] = new Imdb($row[0], $row[1], $row[2]);
+}
+
+$wikiDataMap = [];
+if(isset($argv[3]) && file_exists($argv[3])) {
+
+    $wikiData = fopen($argv[3], 'r');
+    fgetcsv($wikiData);
+    while (($row = fgetcsv($wikiData)) !== false && count($row) === 2) {
+        $title = str_replace('https://en.wikipedia.org/wiki/', '', $row[1]);
+        $title = urldecode($title);
+        $wikiDataMap[$title] = $row[0];
+    }
 }
 
 $movie = new MovieFinder();
@@ -68,7 +80,7 @@ while (true) {
             }
             //get imdb mapping
             $imdbId = $movie->getImdb($article->node);
-            $imdbMatch = $imdb[$imdbId] ?? null;
+            $imdbMatch = $imdb[$imdbId] ?? ($imdb[$wikiDataMap[$article->title] ?? '']) ?? null;
 
             foreach ($movieLocations as $location) {
                 $mapping = new LocationMapping();

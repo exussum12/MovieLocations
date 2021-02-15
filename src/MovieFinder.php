@@ -27,12 +27,12 @@ class MovieFinder
 
     public function getImdb(string $node): string
     {
-        if (preg_match('#/(tt[0-9]{4,})/?#', $node, $imdbMatch)) {
-            return $imdbMatch[1];
-        }
-
         if (preg_match('#{{IMDb title\|([0-9]{4,})#', $node, $imdbMatch)) {
             return 'tt' . $imdbMatch[1];
+        }
+
+        if (preg_match('#/(tt[0-9]{4,})/?#', $node, $imdbMatch)) {
+            return $imdbMatch[1];
         }
 
         return '';
