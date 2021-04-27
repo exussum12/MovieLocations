@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="Description" content="Search which areas movies are filmed in or have links to">
@@ -38,6 +38,12 @@
         #about {
             padding: 1em;
         }
+        label {
+            display: block;
+        }
+        .score label {
+            display: inline;
+        }
     </style>
 </head>
 <body>
@@ -49,6 +55,9 @@
                 <a id="maplink" class="nav-link active" data-toggle="pill" href="#map">Map</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#search" aria-expanded="false">Search</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="pill" href="#about">About</a>
             </li>
         </ul>
@@ -56,6 +65,51 @@
     <div class="tab-content">
         <div id="map-warning" class="hide alert alert-info" role="alert">
             Please zoom in some more to see the locations
+        </div>
+        <div id="search" class="collapse">
+            <form id="searchForm">
+            <label>Search<input name="term" onchange="searchUpdate()" onkeyup="searchUpdate(this.value)" placeholder="Film" /></label>
+            <div class="score">IMDb Score
+                <label>Min Score
+                    <select onchange="searchUpdate()" name="min-score">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                </label>
+                <label>Max Score
+                    <select onchange="searchUpdate()" name="max-score">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                </label>
+            </div>
+            <div>IMDb Ratings
+                <select onchange="searchUpdate()" name="gtlt">
+                    <option>Greater Than</option>
+                    <option>Less Than</option>
+                </select>
+                <input name="amountOfVotes" onchange="searchUpdate()" onkeyup="searchUpdate()" placeholder="Amount of votes" />
+            </div>
+
+            </form>
         </div>
         <div id="map" class="container tab-pane active">
             <div id="mapid"></div>
@@ -124,6 +178,42 @@ function showResults(movies) {
             ).addTo(canvasLayer)
     });
 }
+function showSearchResults(movies, value) {
+    movies.forEach(function(d) {
+        if ((+d.lat == 0) || (+d.lon == 0) || d.lon == undefined || d.lat == undefined ||isNaN(+d.lon) || isNaN(+d.lat) ) {
+            return;
+        }
+
+        let nice_movie = d.movie.replace(/_/g, ' ');
+        let nice_loc = d.location.replace(/_/g, ' ');
+        let imdb = '';
+        if (value['term']) {
+            let term = value['term'].toLowerCase();
+            if (nice_movie.toLowerCase().indexOf(term) === -1) {
+                return;
+            }
+        }
+        if (value['minScore']) {
+            if (value['minScore'] > d.score) {
+                return;
+            }
+        }
+        if (value['maxScore']) {
+            if (value['maxScore'] < d.score) {
+                return;
+            }
+        }
+
+        if (d.imdb) {
+            imdb = `<br><a href="https://imdb.com/title/${d.imdb}/">IMDb: ${d.score} (${d.votes})</a>`;
+        }
+
+        return L.circleMarker([+d.lat, +d.lon], {"color": "red"})
+            .bindPopup(`<a href="https://en.wikipedia.org/wiki/${d.movie}">${nice_movie}</a> has links to
+                <a href="https://en.wikipedia.org/wiki/${d.location}">${nice_loc}</a>${imdb}`
+            ).addTo(searchLayer)
+    });
+}
 
 const mapid = L.map('mapid', {renderer: L.canvas()});
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -133,6 +223,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(mapid);
 const canvasLayer = new L.layerGroup().addTo(mapid);
 L.control.locate().addTo(mapid);
+
+const searchLayer = new L.layerGroup();
 
 
 mapid.on("moveend", function () {
@@ -149,13 +241,15 @@ mapid.on("moveend", function () {
     for(let x = Math.floor(bounds.getSouthWest().lat); x <= Math.ceil(bounds.getNorthEast().lat); x++) {
         for(let y = Math.floor(bounds.getSouthWest().lng); y <= Math.ceil(bounds.getNorthEast().lng); y++) {
             let filename = "out/" + x + "/" + y +".csv";
-            if (loadedTiles.indexOf(filename) === -1) {
-                loadedTiles.push(filename);
+            if (!(filename in loadedTiles)) {
                 d3.tsv("out/" + x + "/" + y + ".csv")
                     .then(function (movies) {
-                        showResults(movies)
+                        loadedTiles[filename] = movies;
+                        showResults(movies);
+                        searchUpdate();
                     })
                     .catch(function (error) {
+                        loadedTiles[filename] = [];
                         console.log(error);
                     });
             }
@@ -164,16 +258,18 @@ mapid.on("moveend", function () {
 
 });
 
-var loadedTiles = [];
+var loadedTiles = {};
 
 mapid.on('zoomend', function() {
     if (mapid.getZoom() >= 8) {
-        canvasLayer.addTo(mapid);
+        if (!mapid.hasLayer(searchLayer)) {
+            canvasLayer.addTo(mapid);
+        }
         $('#map-warning').hide();
         return;
     }
     mapid.removeLayer(canvasLayer)
-        $('#map-warning').show();
+    $('#map-warning').show();
 });
 
 
@@ -189,6 +285,62 @@ if (localStorage && localStorage.getItem('location')) {
 
 mapid.setView([defaults.lat, defaults.lon], defaults.zoom);
 
+function debounce(func, wait) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			func.apply(context, args);
+		};
+		var callNow = !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) {
+            func.apply(context, args);
+		}
+	};
+};
+
+const searchUpdate = debounce(function () {
+    let formElement = document.forms.searchForm;
+    let formData = new FormData(formElement);
+
+    let term = formData.get('term');
+    let minScore = formData.get('min-score');
+    let maxScore = formData.get('max-score');
+    let ltgt = formData.get('ltgt');
+    let amountOfVotes = formData.get('amountOfVotes');
+
+    if (term == '' && minScore == 0 && maxScore == 0 && amountOfVotes == '') {
+        // clear the search layer
+        mapid.removeLayer(searchLayer);
+        canvasLayer.addTo(mapid);
+        return;
+    }
+
+    mapid.removeLayer(canvasLayer);
+    searchLayer.addTo(mapid);
+    searchLayer.clearLayers();
+    for(const [name, tile] of Object.entries(loadedTiles)) {
+        value = [];
+        if (term != '') {
+            value['term'] = term;
+        }
+        if (minScore != 0) {
+            value['minScore'] = +minScore;
+        }
+        if (maxScore != 0) {
+            value['maxScore'] = +maxScore;
+        }
+        if (amountOfVotes != '') {
+            value['votes'] = amountOfVotes;
+            value['ltgt'] = ltgt;
+        }
+
+        showSearchResults(tile, value);
+    }
+}, 250);
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
