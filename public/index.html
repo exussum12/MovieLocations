@@ -103,8 +103,8 @@
             </div>
             <div>IMDb Ratings
                 <select onchange="searchUpdate()" name="gtlt">
-                    <option>Greater Than</option>
-                    <option>Less Than</option>
+                    <option value="gt">Greater Than</option>
+                    <option value="lt">Less Than</option>
                 </select>
                 <input name="amountOfVotes" onchange="searchUpdate()" onkeyup="searchUpdate()" placeholder="Amount of votes" />
             </div>
@@ -201,6 +201,15 @@ function showSearchResults(movies, value) {
         if (value['maxScore']) {
             if (value['maxScore'] < d.score) {
                 return;
+            }
+        }
+
+        if (value['votes']) {
+            if (value['gtlt'] == 'gt') {
+                if (value['votes'] > d.votes) return;
+            }
+            if (value['gtlt'] == 'lt') {
+                if (value['votes'] < d.votes) return;
             }
         }
 
@@ -309,7 +318,7 @@ const searchUpdate = debounce(function () {
     let term = formData.get('term');
     let minScore = formData.get('min-score');
     let maxScore = formData.get('max-score');
-    let ltgt = formData.get('ltgt');
+    let gtlt = formData.get('gtlt');
     let amountOfVotes = formData.get('amountOfVotes');
 
     if (term == '' && minScore == 0 && maxScore == 0 && amountOfVotes == '') {
@@ -334,8 +343,8 @@ const searchUpdate = debounce(function () {
             value['maxScore'] = +maxScore;
         }
         if (amountOfVotes != '') {
-            value['votes'] = amountOfVotes;
-            value['ltgt'] = ltgt;
+            value['votes'] = +amountOfVotes;
+            value['gtlt'] = gtlt;
         }
 
         showSearchResults(tile, value);
