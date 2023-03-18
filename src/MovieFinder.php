@@ -8,17 +8,16 @@ class MovieFinder
 
     public function isValid($node): bool
     {
-        return preg_match('/\[\[Category:.*[0-9]{4} films/i', $node);
+        return preg_match('/\[\[Category:.*[0-9]{4} .*films/i', $node);
     }
 
     public function getLocations($node): array
     {
-        $node = strtolower($node);
         $matches = [];
         $locations = [];
         if (preg_match_all('/\[\[([^#|\]]*)/', $node, $matches) && count($matches[1]) > 0) {
             foreach ($matches[1] as $name) {
-                $locations[] = str_replace(' ', '_', $name);
+                $locations[] = lcfirst(str_replace(' ', '_', $name));
             }
         }
 

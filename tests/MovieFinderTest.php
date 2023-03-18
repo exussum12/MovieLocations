@@ -31,9 +31,9 @@ class MovieFinderTest extends TestCase
         ";
 
         $expected = [
-          'location_a',
-          'location_b',
-          'location_c',
+          'location_A',
+          'location_B',
+          'location_C',
         ];
 
         $this->assertSame($expected, $this->finder->getLocations($test));

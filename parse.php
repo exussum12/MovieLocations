@@ -32,7 +32,7 @@ while (true) {
         if ($location->isValid($article->node)) {
             $article->location = $locationParser->getParsedCoords($location->parse($article->node));
             unset($article->node);
-            $locations[strtolower($article->title)] = $article;
+            $locations[lcfirst($article->title)] = $article;
         }
     } catch (RuntimeException $e) {
         break;
