@@ -3,7 +3,7 @@
     "description": "Parses wikipedia to link movies to places",
     "type": "project",
     "require-dev": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^10.0"
     },
     "license": "MIT",
     "authors": [

@@ -103,7 +103,7 @@ class LocationTest extends TestCase
         );
     }
 
-    public function locations() : array
+    public static function locations() : array
     {
         return [
             ['{{coord|52.204|N|0.112|E|}}', 52.204, 0.112],

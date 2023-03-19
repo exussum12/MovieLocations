@@ -45,7 +45,7 @@ class MovieFinderTest extends TestCase
         $this->assertSame($expected, $this->finder->getImdb($string));
     }
 
-    public function imdb() : array
+    public static function imdb() : array
     {
         return [
             'web link' => ['https://www.imdb.com/title/tt0119707', 'tt0119707'],
