@@ -3,3 +3,6 @@ composer.lock
 vendor
 html
 public/out
+public/data
+.impeccable/review
+.impeccable/mocks

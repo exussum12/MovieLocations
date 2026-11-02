@@ -1,0 +1,557 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-02T13:26:05+00:00",
+  "title": "Design System: Movie Mapper",
+  "extensions": {
+    "colorMeta": {
+      "blue": {
+        "role": "primary",
+        "displayName": "Blue",
+        "canonical": "#2f6fed",
+        "tonalRamp": [
+          "#000729",
+          "#001d5f",
+          "#01369b",
+          "#1555d1",
+          "#397af9",
+          "#73a3fe",
+          "#accaff",
+          "#e6efff"
+        ]
+      },
+      "blue-hover": {
+        "role": "primary",
+        "displayName": "Blue Hover",
+        "canonical": "#2460d6",
+        "tonalRamp": [
+          "#000729",
+          "#001d5e",
+          "#00359d",
+          "#1b56cc",
+          "#3d7bf3",
+          "#72a3ff",
+          "#adcafe",
+          "#e6efff"
+        ]
+      },
+      "blue-text": {
+        "role": "primary",
+        "displayName": "Blue Text",
+        "canonical": "#1f5ad1",
+        "tonalRamp": [
+          "#000729",
+          "#001d5f",
+          "#00359d",
+          "#1b56cd",
+          "#3d7af4",
+          "#74a3fd",
+          "#adcaff",
+          "#e6efff"
+        ]
+      },
+      "blue-tint": {
+        "role": "primary",
+        "displayName": "Blue Tint",
+        "canonical": "#e8effd",
+        "tonalRamp": [
+          "#090b10",
+          "#21252e",
+          "#3d424d",
+          "#5b616d",
+          "#7c828f",
+          "#9fa5b1",
+          "#c5c9d1",
+          "#edeef1"
+        ]
+      },
+      "blue-selection": {
+        "role": "primary",
+        "displayName": "Blue Selection",
+        "canonical": "#cfdefc",
+        "tonalRamp": [
+          "#070b15",
+          "#1b2538",
+          "#36425a",
+          "#55617b",
+          "#75829e",
+          "#98a5c0",
+          "#c1c9da",
+          "#eceef4"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#1a1f2b",
+        "tonalRamp": [
+          "#090b10",
+          "#202530",
+          "#3c424f",
+          "#5b6170",
+          "#7c8291",
+          "#9fa5b4",
+          "#c5c9d2",
+          "#edeef1"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#5b6472",
+        "tonalRamp": [
+          "#080b10",
+          "#1f2530",
+          "#3a4250",
+          "#596270",
+          "#7a8392",
+          "#9da6b4",
+          "#c4cad2",
+          "#edeef1"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "canonical": "#e6e8eb",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242527",
+          "#404244",
+          "#606164",
+          "#818285",
+          "#a3a5a8",
+          "#c8c9cb",
+          "#eeeeef"
+        ]
+      },
+      "control-border": {
+        "role": "neutral",
+        "displayName": "Control Border",
+        "canonical": "#8a909a",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#232529",
+          "#3f4247",
+          "#5e6167",
+          "#7f8388",
+          "#a2a5ab",
+          "#c7c9cc",
+          "#eeeeef"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Field",
+        "canonical": "#f0f1f3",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414243",
+          "#606163",
+          "#818284",
+          "#a4a5a7",
+          "#c8c9ca",
+          "#eeeeef"
+        ]
+      },
+      "hover": {
+        "role": "neutral",
+        "displayName": "Hover",
+        "canonical": "#f5f6f8",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414243",
+          "#606163",
+          "#818284",
+          "#a4a5a7",
+          "#c8c9ca",
+          "#eeeeef"
+        ]
+      },
+      "marker-receded": {
+        "role": "neutral",
+        "displayName": "Marker Receded",
+        "canonical": "#a6acb5",
+        "tonalRamp": [
+          "#090b0e",
+          "#21252b",
+          "#3d424a",
+          "#5c626a",
+          "#7d838b",
+          "#a0a5ae",
+          "#c6c9ce",
+          "#edeef0"
+        ]
+      },
+      "wide-area-fill": {
+        "role": "neutral",
+        "displayName": "Wide Area Fill",
+        "canonical": "rgba(255,255,255,0.35)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "you-are-here": {
+        "role": "tertiary",
+        "displayName": "You Are Here",
+        "canonical": "#1aa260",
+        "tonalRamp": [
+          "#001005",
+          "#002e17",
+          "#04502c",
+          "#067442",
+          "#079b5a",
+          "#51be7f",
+          "#9fd9b3",
+          "#e2f4e7"
+        ]
+      },
+      "map-land": {
+        "role": "neutral",
+        "displayName": "Land",
+        "canonical": "#f6f6f4",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252524",
+          "#424240",
+          "#616160",
+          "#828281",
+          "#a5a5a3",
+          "#c9c9c8",
+          "#eeeeee"
+        ]
+      },
+      "map-green": {
+        "role": "neutral",
+        "displayName": "Pale Green",
+        "canonical": "#e7eee0",
+        "tonalRamp": [
+          "#0a0c08",
+          "#22271e",
+          "#3f4439",
+          "#5e6458",
+          "#7f8578",
+          "#a1a79b",
+          "#c7cbc3",
+          "#eeefec"
+        ]
+      },
+      "map-water": {
+        "role": "neutral",
+        "displayName": "Pale Water",
+        "canonical": "#cfe1ee",
+        "tonalRamp": [
+          "#060c10",
+          "#1b272f",
+          "#35444f",
+          "#54646f",
+          "#748591",
+          "#98a8b3",
+          "#c1cbd2",
+          "#eceff1"
+        ]
+      },
+      "map-building": {
+        "role": "neutral",
+        "displayName": "Building",
+        "canonical": "#ecece8",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#252523",
+          "#42423f",
+          "#61615e",
+          "#82827f",
+          "#a5a5a2",
+          "#c9c9c7",
+          "#eeeeee"
+        ]
+      },
+      "map-boundary": {
+        "role": "neutral",
+        "displayName": "Boundary",
+        "canonical": "#d7d7d3",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#252523",
+          "#42423f",
+          "#61615e",
+          "#82827f",
+          "#a5a5a2",
+          "#c9c9c7",
+          "#eeeeee"
+        ]
+      },
+      "map-label": {
+        "role": "neutral",
+        "displayName": "Map Label",
+        "canonical": "#6f7680",
+        "tonalRamp": [
+          "#090b0f",
+          "#20252d",
+          "#3c424c",
+          "#5b626b",
+          "#7c838d",
+          "#9fa6af",
+          "#c5c9cf",
+          "#edeef0"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "heading": {
+        "displayName": "Heading",
+        "purpose": "The place, film or area heading in the card."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "The product name at the top of the card."
+      },
+      "row-name": {
+        "displayName": "Row Name",
+        "purpose": "The name of a place or film in a result row."
+      },
+      "subheading": {
+        "displayName": "Subheading",
+        "purpose": "Group headings inside the panel."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "About text and short messages in the panel."
+      },
+      "input": {
+        "displayName": "Input",
+        "purpose": "The search box and filter fields. 16px stops iOS zooming on focus."
+      },
+      "pill": {
+        "displayName": "Pill",
+        "purpose": "Near me and IMDb filters."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "The primary button and text buttons."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Counts and summary lines, with tabular numbers."
+      },
+      "note": {
+        "displayName": "Note",
+        "purpose": "Row details and explanatory notes."
+      },
+      "map-label": {
+        "displayName": "Map Label",
+        "purpose": "Place labels drawn on the map."
+      },
+      "map-label-film": {
+        "displayName": "Map Label Film",
+        "purpose": "Labels for a followed film and for hover."
+      },
+      "map-label-selected": {
+        "displayName": "Map Label Selected",
+        "purpose": "The selected place label."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating",
+        "value": "0 2px 16px rgb(20 30 50 / 0.16)",
+        "purpose": "The card, the zoom controls and the toast."
+      },
+      {
+        "name": "sheet",
+        "value": "0 -2px 14px rgb(20 30 50 / 0.18)",
+        "purpose": "The phone's bottom sheet, casting upward over the map."
+      }
+    ],
+    "motion": [
+      {
+        "name": "sheet-settle",
+        "value": "280ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The bottom sheet settling at a stop."
+      },
+      {
+        "name": "map-padding",
+        "value": "280ms",
+        "purpose": "Map padding following the card or sheet."
+      },
+      {
+        "name": "map-move",
+        "value": "400ms to 500ms",
+        "purpose": "Short map moves. Far jumps cut straight in, and reduced motion removes all of it."
+      },
+      {
+        "name": "map-label-fade",
+        "value": "150ms",
+        "purpose": "MapLibre label fade. It is 0 under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "(max-width: 767px), (max-height: 540px) and (max-width: 960px)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Search Box",
+      "kind": "input",
+      "refersTo": "search-box",
+      "description": "The main search field at the top of the card.",
+      "html": "<label class=\"ds-search\"><span class=\"ds-hidden\">Search films and places</span><svg class=\"ds-icon\" viewBox=\"0 0 20 20\" aria-hidden=\"true\"><circle cx=\"8.5\" cy=\"8.5\" r=\"5.5\"/><path d=\"m13 13 5 5\"/></svg><input type=\"search\" placeholder=\"Search films and places\"></label>",
+      "css": ".ds-icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; } .ds-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } .ds-search { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 14px; background: var(--field, #f0f1f3); border-radius: var(--radius-small, 10px); color: var(--muted, #5b6472); font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", sans-serif; } .ds-search:focus-within { outline: 2px solid var(--blue, #2f6fed); outline-offset: 1px; background: var(--surface, #fff); } .ds-search input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: none; color: var(--ink, #1a1f2b); font: inherit; font-size: 16px; } .ds-search input::placeholder { color: var(--muted, #5b6472); opacity: 1; }"
+    },
+    {
+      "name": "Pill",
+      "kind": "chip",
+      "refersTo": "pill",
+      "description": "Near me and IMDb filters. An open pill has a 2px ink border.",
+      "html": "<button class=\"ds-pill\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 20 20\" aria-hidden=\"true\"><circle cx=\"10\" cy=\"10\" r=\"4.5\"/><path d=\"M10 2v3.5M10 14.5V18M2 10h3.5M14.5 10H18\"/></svg>Near me</button> <button class=\"ds-pill\" type=\"button\" aria-expanded=\"true\"><svg class=\"ds-icon\" viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M3 6h14M6 10h8M9 14h2\"/></svg>IMDb filters <span class=\"ds-pill-count\">2</span></button>",
+      "css": ".ds-icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; } .ds-pill { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; background: var(--surface, #fff); color: var(--ink, #1a1f2b); border: 1px solid #8a909a; border-radius: 999px; font: 500 14px/1.4 system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", sans-serif; white-space: nowrap; cursor: pointer; } .ds-pill:hover { background: var(--hover, #f5f6f8); } .ds-pill:focus-visible { outline: 2px solid var(--blue, #2f6fed); outline-offset: 2px; } .ds-pill[aria-expanded=\"true\"] { border-color: var(--ink, #1a1f2b); box-shadow: inset 0 0 0 1px var(--ink, #1a1f2b); } .ds-pill-count { color: var(--blue-text, #1f5ad1); font-weight: 700; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "action-button",
+      "description": "The one primary action in a detail view, used for Share.",
+      "html": "<button class=\"ds-action\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M10 13V3M6 6.5 10 3l4 3.5M4 11v6h12v-6\"/></svg>Share</button>",
+      "css": ".ds-icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; } .ds-action { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; background: var(--blue, #2f6fed); border: 0; border-radius: var(--radius-small, 10px); color: #fff; font: 600 14px/1.4 system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", sans-serif; cursor: pointer; } .ds-action .ds-icon { width: 16px; height: 16px; } .ds-action:hover { background: #2460d6; } .ds-action:focus-visible { outline: 2px solid var(--blue, #2f6fed); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Button",
+      "kind": "button",
+      "refersTo": "text-button",
+      "description": "A secondary action in blue text, such as Show all on map.",
+      "html": "<button class=\"ds-text\" type=\"button\">Show all on map</button>",
+      "css": ".ds-text { min-height: 44px; padding: 0; border: 0; background: none; color: var(--blue-text, #1f5ad1); font: 600 14px/1.4 system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", sans-serif; cursor: pointer; } .ds-text:hover { text-decoration: underline; } .ds-text:focus-visible { outline: 2px solid var(--blue, #2f6fed); outline-offset: 2px; }"
+    },
+    {
+      "name": "Filter Field",
+      "kind": "input",
+      "refersTo": "filter-field",
+      "description": "A labelled IMDb filter in the two-column filter grid.",
+      "html": "<label class=\"ds-field\">Amount of votes<input type=\"number\" placeholder=\"Any\"></label>",
+      "css": ".ds-field { display: grid; gap: 4px; color: var(--muted, #5b6472); font: 400 14px/1.4 system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", sans-serif; } .ds-field input { width: 100%; height: 44px; padding: 0 10px; background: var(--surface, #fff); border: 1px solid #8a909a; border-radius: var(--radius-small, 10px); color: var(--ink, #1a1f2b); font: inherit; font-size: 16px; } .ds-field input:focus-visible { outline: 2px solid var(--blue, #2f6fed); outline-offset: 2px; }"
+    },
+    {
+      "name": "Result Row",
+      "kind": "custom",
+      "refersTo": "row",
+      "description": "A place or film in the results list, with a line above it. The second row shows the linked state, when its marker is hovered.",
+      "html": "<ul class=\"ds-rows\"><li><button class=\"ds-row\" type=\"button\"><span><span class=\"ds-row-name\">Pinewood Studios</span><span class=\"ds-row-sub\">The Dark Knight, Avengers: Age of Ultron</span></span><span class=\"ds-row-count\">448 films</span></button></li><li><button class=\"ds-row ds-row-linked\" type=\"button\"><span><span class=\"ds-row-name\">Shepperton Studios</span><span class=\"ds-row-sub\">Gladiator, Batman Begins</span></span><span class=\"ds-row-count\">347 films</span></button></li></ul>",
+      "css": ".ds-rows { list-style: none; margin: 0; padding: 0; font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", sans-serif; } .ds-rows li { border-top: 1px solid var(--line, #e6e8eb); } .ds-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 48px; padding: 9px 8px; border: 0; border-radius: var(--radius-small, 10px); background: none; color: var(--ink, #1a1f2b); font: inherit; text-align: left; cursor: pointer; } .ds-row:hover { background: var(--hover, #f5f6f8); } .ds-row:focus-visible { outline: 2px solid var(--blue, #2f6fed); outline-offset: -2px; } .ds-row-linked { background: #e8effd; } .ds-row-name { display: block; font-size: 15px; font-weight: 600; } .ds-row-sub { display: block; color: var(--muted, #5b6472); font-size: 13px; font-variant-numeric: tabular-nums; } .ds-row-count { flex: none; color: var(--muted, #5b6472); font-size: 14px; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Floating Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The white card that floats over the map. On phones it becomes the bottom sheet.",
+      "html": "<aside class=\"ds-card\"><p class=\"ds-card-word\">Movie Mapper</p><h2 class=\"ds-card-heading\">Around London</h2><p class=\"ds-card-meta\">11,187 film links across 1,734 places</p></aside>",
+      "css": ".ds-card { width: 372px; max-width: 100%; padding: 16px; background: var(--surface, #fff); color: var(--ink, #1a1f2b); border-radius: var(--radius, 14px); box-shadow: var(--shadow, 0 2px 16px rgb(20 30 50 / 0.16)); font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", sans-serif; } .ds-card-word { margin: 0 0 12px; font-size: 15px; font-weight: 700; } .ds-card-heading { margin: 0 0 2px; font-size: 24px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; } .ds-card-meta { margin: 0; color: var(--muted, #5b6472); font-size: 14px; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "A short status message near the bottom of the map.",
+      "html": "<p class=\"ds-toast\" role=\"status\">Finding your location</p>",
+      "css": ".ds-toast { display: inline-block; margin: 0; padding: 10px 14px; background: var(--ink, #1a1f2b); color: #fff; font: 400 14px/1.4 system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", sans-serif; border-radius: var(--radius-small, 10px); box-shadow: var(--shadow, 0 2px 16px rgb(20 30 50 / 0.16)); }"
+    },
+    {
+      "name": "Map Markers",
+      "kind": "custom",
+      "refersTo": "marker-film",
+      "description": "A preview only: the real markers are MapLibre circle layers, never page elements. Shown here are an exact place, a wide area, a selected place and the visitor.",
+      "html": "<div class=\"ds-markers\"><span class=\"ds-marker ds-film\"></span><span class=\"ds-marker ds-wide\"></span><span class=\"ds-marker ds-selected\"></span><span class=\"ds-marker ds-you\"></span></div>",
+      "css": ".ds-markers { display: flex; align-items: center; gap: 20px; padding: 16px; background: #f6f6f4; } .ds-marker { display: block; box-sizing: content-box; border-radius: 50%; border-style: solid; } .ds-film { width: 22px; height: 22px; background: #2f6fed; border-width: 2px; border-color: #fff; } .ds-wide { width: 28px; height: 28px; background: rgba(255,255,255,0.35); border-width: 3px; border-color: #2f6fed; } .ds-selected { width: 26px; height: 26px; background: #1a1f2b; border-width: 3px; border-color: #fff; } .ds-you { width: 14px; height: 14px; background: #1aa260; border-width: 3px; border-color: #fff; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Category-standard map search",
+    "overview": "Movie Mapper looks like a map search on purpose. The owner chose the category standard, with Airbnb's map search as the quality bar, after trying a themed printed-map look and rejecting it as ugly. There is no theme, costume or metaphor here, and none should be added. The design should be judged on how well a familiar pattern is made: clear hierarchy, tidy spacing, and a list and map that respond to each other.\n\nThe map fills the screen. A white floating card holds the name, search, filters and results, and on phones that card becomes a bottom sheet. Text is near-black with a muted grey for secondary information, and one blue carries everything to do with film. The base map stays quiet so the blue markers stand out against it.\n\nThe page is dense without feeling busy, because about 262,000 film-to-place links have to work on a phone. Several rules below are performance rules rather than visual ones. They are recorded here because they decide what a marker or a list can be.",
+    "keyCharacteristics": [
+      "A full-screen map with one floating card on larger screens and one bottom sheet on phones.",
+      "White surfaces, near-black text, muted grey secondary text and one blue for film.",
+      "A quiet neutral base map with pale water and pale green.",
+      "System fonts, generous rounded corners and soft shadows.",
+      "Round markers drawn as map layers, sized by film count.",
+      "One light theme."
+    ],
+    "rules": [
+      {
+        "name": "The One Blue Rule",
+        "body": "Film is always blue, in one hue. No other accent colour may stand for film data, and no marker may be coloured by score, year or genre. Ink marks the hovered or selected marker, grey marks receded markers, and green only marks the visitor.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Light Theme Rule",
+        "body": "There is one light theme (`color-scheme: light`) and no dark mode, on the interface or the map.",
+        "section": "colors"
+      },
+      {
+        "name": "The System Fonts Rule",
+        "body": "The interface uses the system font stack and downloads no font, for phone speed. The one exception is outside the interface: MapLibre draws all map text from Noto Sans glyph files served with the base map tiles, as map layers can't use system fonts here. Screenshots from a Linux machine show Noto Sans in the card too, but that is only that machine's system font.",
+        "section": "typography"
+      },
+      {
+        "name": "The Link Wording Rule",
+        "body": "A connection is always a \"link\", as in \"15 films have links here\" and \"Has links to 13 places\". Never call one a \"filming location\", because the data doesn't record whether a film was shot there, set there or connected some other way. The About page may explain that a link could be any of these.",
+        "section": "typography"
+      },
+      {
+        "name": "The Touch Target Rule",
+        "body": "Every interactive control on a phone has a target of at least 44px. A smaller visible shape needs a larger hit area.",
+        "section": "layout"
+      },
+      {
+        "name": "The Hollow Ring Rule",
+        "body": "A wide area, such as a country or region, is always a hollow ring and never a filled marker, because it isn't an exact spot. It is a 28px ring with a 3px blue outline when a film is followed, and a 3px ink outline when hovered (32px) or selected (34px). Wide areas stay off the browsing layer altogether. A ring draws above exact dots so it can't vanish beneath them, an exact place's label wins over a wide area's, and wide areas are listed after exact places.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do treat Airbnb's map search as the quality bar, and solve problems the way a familiar map search would.",
+      "Do keep markers as GPU map layers, which is what keeps panning fast on phones. To change how a marker looks, change its layer's paint.",
+      "Do keep heavy data in the worker. The main thread asks it for one page of results or one film at a time, so it never holds an object for every film.",
+      "Do write \"link\" for every connection between a film and a place.",
+      "Do draw every wide area as a hollow ring.",
+      "Do use the one blue for everything to do with film.",
+      "Do give every phone control a target of at least 44px.",
+      "Do keep input text at 16px, so iOS doesn't zoom on focus.",
+      "Do keep the list and map responding to each other in both directions."
+    ],
+    "donts": [
+      "Don't add a theme, a metaphor or printed-map styling. The owner tried a printed-map look and rejected it as ugly.",
+      "Don't create a DOM element per marker, including `maplibregl.Marker`, as thousands of them would slow phones.",
+      "Don't build objects across the film catalogue on the main thread.",
+      "Don't download a web font for the interface.",
+      "Don't call a link a \"filming location\".",
+      "Don't draw a wide area as a filled marker.",
+      "Don't add a second accent colour for film, or colour markers by data.",
+      "Don't add a dark theme."
+    ]
+  }
+}
