@@ -1,0 +1,54 @@
+<ifModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/xml text/css text/plain
+  AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript application/json
+</ifModule>
+
+<FilesMatch "test2">
+      ExpiresActive On
+      ExpiresDefault "access plus 1 week"
+FileETag None
+Header unset Last-Modified
+</FilesMatch>
+RewriteEngine on
+    # Serve brotli compressed CSS and JS files if they exist
+    # and the client accepts brotli.
+    RewriteCond "%{HTTP:Accept-encoding}" "br"
+    RewriteCond "%{REQUEST_FILENAME}\.br" "-s"
+    RewriteRule "^(.*)"              "$1.br" [QSA,L]
+
+    RewriteCond "%{HTTP:Accept-encoding}" "gzip"
+    RewriteCond "%{REQUEST_FILENAME}\.gz" "-s"
+    RewriteRule "^(.*)"              "$1.gz" [QSA]
+
+    # Serve correct content types, and prevent double compression.
+    RewriteRule "\.css\.br$" "-" [T=text/css,E=no-brotli:1]
+    RewriteRule "\.js\.br$"  "-" [T=text/javascript,E=no-brotli:1]
+    RewriteRule "\.csv\.br$"  "-" [T=text/csv,E=no-brotli:1]
+    # no-gzip is what stops mod_deflate compressing these a second time
+    RewriteRule "\.json\.br$" "-" [T=application/json,E=no-gzip:1]
+    RewriteRule "\.tsv\.br$"  "-" [T=text/tab-separated-values,E=no-gzip:1]
+
+    RewriteRule "\.css\.gz$" "-" [T=text/css,E=no-gzip:1]
+    RewriteRule "\.js\.gz$"  "-" [T=text/javascript,E=no-gzip:1]
+    RewriteRule "\.csv\.gz$"  "-" [T=text/csv,E=no-gzip:1]
+    RewriteRule "\.json\.gz$" "-" [T=application/json,E=no-gzip:1]
+    RewriteRule "\.tsv\.gz$"  "-" [T=text/tab-separated-values,E=no-gzip:1]
+
+
+    <FilesMatch "(\.br)$">
+      # Serve correct encoding type.
+      Header append Content-Encoding br
+
+      # Force proxies to cache brotli &
+      # non-brotli css/js files separately.
+      Header append Vary Accept-Encoding
+    </FilesMatch>
+
+    <FilesMatch "(\.gz)$">
+      # Serve correct encoding type.
+      Header append Content-Encoding gzip
+
+      # Force proxies to cache brotli &
+      # non-brotli css/js files separately.
+      Header append Vary Accept-Encoding
+    </FilesMatch>

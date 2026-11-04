@@ -3,8 +3,9 @@ composer install
 ./vendor/bin/phpunit
 
 php parse.php $1 $2 $3 > public/parsed.csv
-mkdir -p -- public/out/{-90..90}
-awk -v FS='\t' -v OFS='\t' -f split_locations.awk  public/parsed.csv
 
-find . -type f -name "*.csv" -exec sh -c "gzip -9 < {} > {}.gz" \;
-find . -type f -name "*.csv" -exec sh -c "brotli  < {} > {}.br" \;
+# Replace the site's data as a whole, so no files survive from an older build
+rm -rf public/data
+php build_site.php public/parsed.csv public/data
+
+./compress.sh public/data public/parsed.csv
